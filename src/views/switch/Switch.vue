@@ -1,8 +1,5 @@
 <template>
     <div class="page-content server">
-
-       
-
      <!-- 这里添加一个搜索框和一个添加交换机按钮 -->
       <div class="search-box">
         <el-row justify="space-between" >
@@ -37,7 +34,7 @@
               <div class="left">
                 <img src="@imgs/switch/switch.png" alt="服务器" />
                         <el-tag type="info">华为CE6820-{{ item.ip }}</el-tag>
-                        <el-tag :type="item.status == '1' ? 'success' : 'danger'">{{ item.status == '1' ? 'SNMP状态正常' : 'SNMP状态异常' }}</el-tag>
+                        <el-tag :type="item.status == 1 ? 'success' : 'danger'">{{ item.status == 1 ? 'SNMP状态正常' : 'SNMP状态异常' }}</el-tag>
               </div>
               <div class="right">
                 <div>
@@ -63,7 +60,7 @@
       v-model="dialogVisible"
       width="30%"
     >
-      <el-form ref="formRef" :model="formData" :rules="rules" label-width="120px">
+      <el-form ref="formRef" label-width="120px">
         <el-form-item label="交换机名称" prop="username">
           <el-input  />
         </el-form-item>
@@ -76,9 +73,7 @@
             >
             <el-input  />
             </el-tooltip>
-         
-          
-          
+ 
         </el-form-item>
         <el-form-item label="是否收集流量" prop="sex">
             <el-switch v-model="value1" />
@@ -97,7 +92,7 @@
         </el-form-item>
         <el-form-item label="备注" prop="phone">
             <el-input
-                v-model="textarea"
+                
                 :rows="2"
                 type="textarea"
                 placeholder="Please input"
@@ -108,7 +103,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSubmit">提交</el-button>
+          <el-button type="primary" @click="">提交</el-button>
         </div>
       </template>
     </el-dialog>
@@ -126,6 +121,7 @@
         ip: string
         cup: number
         memory: number
+        status: number
     }
   
     const serverList = reactive<ServerInfo[]>([

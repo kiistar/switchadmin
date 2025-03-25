@@ -29,6 +29,9 @@
   </template>
   
   <script setup lang="ts">
+    function handleClick() {
+      
+    }
     const apiList = ref([
       {
         id: '1',
