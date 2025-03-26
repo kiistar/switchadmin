@@ -20,9 +20,8 @@ export const asyncRoutes: MenuListType[] = [
     path: '/',
     name: 'Home',
     component: RoutesAlias.Home,
-    redirect: '/switch',
     meta: {
-      title:'控制台',
+      title: '控制台',
       icon: '&#xe721;',
       keepAlive: false
     },
@@ -33,20 +32,31 @@ export const asyncRoutes: MenuListType[] = [
         name: 'switch',
         component: '/switch/Switch',
         meta: {
-          title:'交换机管理',
+          title: '交换机管理',
           keepAlive: true
-        },
+        }
       },
       {
         id: 202,
         path: '/switch/Switch_port',
-        name:'Switch_port',
+        name: 'Switch_port',
         component: '/switch/Switch_port',
         meta: {
-          title:'端口管理',
+          title: '端口管理',
           keepAlive: true,
-          isHide:true, // 是否在菜单中隐藏
-        },
+          isHide: true // 是否在菜单中隐藏
+        }
+      },
+      {
+        id: 203,
+        path: '/switch/Switch_port_flow',
+        name: 'Switch_port_flow',
+        component: '/switch/Switch_port_flow',
+        meta: {
+          title: '流量管理',
+          keepAlive: true,
+          isHide: true // 是否在菜单中隐藏
+        }
       }
     ]
   },

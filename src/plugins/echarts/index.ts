@@ -17,7 +17,8 @@ import {
   AriaComponent,
   ParallelComponent,
   LegendComponent,
-  LegendPlainComponent
+  LegendPlainComponent,
+  MarkLineComponent
 } from 'echarts/components'
 
 import { SVGRenderer } from 'echarts/renderers'
@@ -37,7 +38,8 @@ echarts.use([
   MapChart,
   SVGRenderer,
   PictorialBarChart,
-  GaugeChart
+  GaugeChart,
+  MarkLineComponent
 ])
 
 export default echarts

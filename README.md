@@ -4,8 +4,6 @@ English | [简体中文](./README.md)
 
 一个基于 Vue3 + Vite + ElementPlus 的 Art Design Pro 的交换机后台管理系统。
 
-
-
 ## 初始化项目
 
 ```bash
@@ -21,4 +19,3 @@ pnpm dev
 # Build for production
 pnpm build
 ```
-

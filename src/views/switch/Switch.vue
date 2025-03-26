@@ -1,104 +1,105 @@
 <template>
-    <div class="page-content server">
-     <!-- 这里添加一个搜索框和一个添加交换机按钮 -->
-      <div class="search-box">
-        <el-row justify="space-between" >
-            <el-col :lg="6" :md="6" :sm="14" :xs="16">
-                <el-input
-                :prefix-icon="Search"
-                clearable
-                placeholder="输入交换机关键字查询"
-                @keyup.enter=""
-                />
-            </el-col>
-            
-            <el-col :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
-                <el-button @click="showDialog('add')"  type="primary">新增交换机</el-button>
-            </el-col>
-            </el-row>
-        <!-- <el-input v-model="searchText" placeholder="请输入交换机名称" /> -->
-      </div>
+  <div class="page-content server">
+    <!-- 这里添加一个搜索框和一个添加交换机按钮 -->
+    <div class="search-box">
+      <el-row justify="space-between">
+        <el-col :lg="6" :md="6" :sm="14" :xs="16">
+          <el-input
+            :prefix-icon="Search"
+            clearable
+            placeholder="输入交换机关键字查询"
+            @keyup.enter=""
+          />
+        </el-col>
 
-      <div class="list">
-        <div class="middle">
-          <div class="item" v-for="item in serverList" :key="item.name">
-            <div class="header">
-              <span class="name">{{ item.name }}</span>
-              <span>
-                <el-tag type="info" @click="$router.push({ path: '/switch/switch_port', query: { name: item.name, ip: item.ip } })">查看端口</el-tag>
-                <el-tag type="success">编辑</el-tag>
-                <el-tag type="danger">删除</el-tag>
-              </span>
+        <el-col :lg="6" :md="6" :sm="10" :xs="6" style="display: flex; justify-content: end">
+          <el-button @click="showDialog('add')" type="primary">新增交换机</el-button>
+        </el-col>
+      </el-row>
+      <!-- <el-input v-model="searchText" placeholder="请输入交换机名称" /> -->
+    </div>
+
+    <div class="list">
+      <div class="middle">
+        <div class="item" v-for="item in serverList" :key="item.name">
+          <div class="header">
+            <span class="name">{{ item.name }}</span>
+            <span>
+              <el-tag
+                type="info"
+                @click="
+                  $router.push({
+                    path: '/switch/switch_port',
+                    query: { name: item.name, ip: item.ip }
+                  })
+                "
+                >查看端口</el-tag
+              >
+              <el-tag type="success">编辑</el-tag>
+              <el-tag type="danger">删除</el-tag>
+            </span>
+          </div>
+          <div class="box">
+            <div class="left">
+              <img src="@imgs/switch/switch.png" alt="服务器" />
+              <el-tag type="info">华为CE6820-{{ item.ip }}</el-tag>
+              <el-tag :type="item.status == 1 ? 'success' : 'danger'">{{
+                item.status == 1 ? 'SNMP状态正常' : 'SNMP状态异常'
+              }}</el-tag>
             </div>
-            <div class="box">
-              <div class="left">
-                <img src="@imgs/switch/switch.png" alt="服务器" />
-                        <el-tag type="info">华为CE6820-{{ item.ip }}</el-tag>
-                        <el-tag :type="item.status == 1 ? 'success' : 'danger'">{{ item.status == 1 ? 'SNMP状态正常' : 'SNMP状态异常' }}</el-tag>
+            <div class="right">
+              <div>
+                <p>CPU</p>
+                <el-progress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
               </div>
-              <div class="right">
-                <div>
-                  <p>CPU</p>
-                  <el-progress :percentage="item.cup" :text-inside="true" :stroke-width="17" />
-                </div>
-                <div>
-                  <p>RAM</p>
-                  <el-progress
-                    :percentage="item.memory"
-                    status="success"
-                    :text-inside="true"
-                    :stroke-width="17"
-                  />
-                </div>
+              <div>
+                <p>RAM</p>
+                <el-progress
+                  :percentage="item.memory"
+                  status="success"
+                  :text-inside="true"
+                  :stroke-width="17"
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- 这里增加一个交换机添加的界面 -->
-      <el-dialog
-      v-model="dialogVisible"
-      width="30%"
-    >
+    </div>
+    <!-- 这里增加一个交换机添加的界面 -->
+    <el-dialog v-model="dialogVisible" width="30%">
       <el-form ref="formRef" label-width="120px">
         <el-form-item label="交换机名称" prop="username">
-          <el-input  />
+          <el-input />
         </el-form-item>
         <el-form-item label="IP" prop="phone">
-            <el-tooltip
-                class="box-item"
-                effect="dark"
-                content="如果交换机SNMP端口不是161，请填写xxx.xx.xx.xxx:xxx格式"
-                placement="bottom-start"
-            >
-            <el-input  />
-            </el-tooltip>
- 
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="如果交换机SNMP端口不是161，请填写xxx.xx.xx.xxx:xxx格式"
+            placement="bottom-start"
+          >
+            <el-input />
+          </el-tooltip>
         </el-form-item>
         <el-form-item label="是否收集流量" prop="sex">
-            <el-switch v-model="value1" />
+          <el-switch v-model="value1" />
         </el-form-item>
         <el-form-item label="交换机型号" prop="phone">
-          <el-input  />
+          <el-input />
         </el-form-item>
         <el-form-item label="SNMP读团体名" prop="phone">
-          <el-input  />
+          <el-input />
         </el-form-item>
         <el-form-item label="SNMP写团体名" prop="phone">
-          <el-input  />
+          <el-input />
         </el-form-item>
         <el-form-item label="IDC机房位置" prop="phone">
-          <el-input  />
+          <el-input />
         </el-form-item>
         <el-form-item label="备注" prop="phone">
-            <el-input
-                
-                :rows="2"
-                type="textarea"
-                placeholder="Please input"
-            />
+          <el-input :rows="2" type="textarea" placeholder="Please input" />
         </el-form-item>
-        
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -107,55 +108,55 @@
         </div>
       </template>
     </el-dialog>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-    import { reactive, onMounted, onUnmounted } from 'vue'
-    import { Search } from '@element-plus/icons-vue'
-    import { ref } from 'vue'
-    // 定义响应式变量
-    const value1 = ref(false)  // false 为默认值，表示开关的初始状态
-    interface ServerInfo {
-        name: string
-        ip: string
-        cup: number
-        memory: number
-        status: number
+  </div>
+</template>
+
+<script setup lang="ts">
+  import { reactive, onMounted, onUnmounted } from 'vue'
+  import { Search } from '@element-plus/icons-vue'
+  import { ref } from 'vue'
+  // 定义响应式变量
+  const value1 = ref(false) // false 为默认值，表示开关的初始状态
+  interface ServerInfo {
+    name: string
+    ip: string
+    cup: number
+    memory: number
+    status: number
+  }
+
+  const serverList = reactive<ServerInfo[]>([
+    {
+      name: 'SD-济阳电信',
+      ip: '182.40.124.170',
+      cup: 85,
+      memory: 65,
+      status: 1
+    },
+    {
+      name: '测试服务器',
+      ip: '192.168.1.101',
+      cup: 32,
+      memory: 78,
+      status: 0
+    },
+    {
+      name: '预发布服务器',
+      ip: '192.168.1.101',
+      cup: 32,
+      memory: 78,
+      status: 1
+    },
+    {
+      name: '线上服务器',
+      ip: '192.168.1.101',
+      cup: 32,
+      memory: 78,
+      status: 0
     }
-  
-    const serverList = reactive<ServerInfo[]>([
-      {
-        name: 'SD-济阳电信',
-        ip: '182.40.124.170',
-        cup: 85,
-        memory: 65,
-        status: 1,
-      },
-      {
-        name: '测试服务器',
-        ip: '192.168.1.101',
-        cup: 32,
-        memory: 78,
-        status: 0,
-      },
-      {
-        name: '预发布服务器',
-        ip: '192.168.1.101',
-        cup: 32,
-        memory: 78,
-        status: 1,
-      },
-      {
-        name: '线上服务器',
-        ip: '192.168.1.101',
-        cup: 32,
-        memory: 78,
-        status: 0,
-      }
-    ])
-  
-   // 生成随机数据的函数
+  ])
+
+  // 生成随机数据的函数
   function generateRandomValue(min = 0, max = 100): number {
     return Math.floor(Math.random() * (max - min + 1)) + min
   }
@@ -167,26 +168,26 @@
       server.memory = generateRandomValue()
     })
   }
-  
-        // 修改 timer 类型为 number | null
-    let timer: number | null = null
-    const dialogVisible = ref(false)
-    const showDialog = (type: string, row?: any) => {
-        dialogVisible.value = true
+
+  // 修改 timer 类型为 number | null
+  let timer: number | null = null
+  const dialogVisible = ref(false)
+  const showDialog = (type: string, row?: any) => {
+    dialogVisible.value = true
   }
-    onMounted(() => {
-        timer = window.setInterval(updateServerData, 3000)
-        })
-  
-    onUnmounted(() => {
-      if (timer !== null) {
-        window.clearInterval(timer)
-        timer = null
-      }
-    })
-  </script>
-  
-  <style lang="scss" scoped>
+  onMounted(() => {
+    timer = window.setInterval(updateServerData, 3000)
+  })
+
+  onUnmounted(() => {
+    if (timer !== null) {
+      window.clearInterval(timer)
+      timer = null
+    }
+  })
+</script>
+
+<style lang="scss" scoped>
   .server {
     .list {
       width: 100%;

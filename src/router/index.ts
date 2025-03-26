@@ -44,7 +44,7 @@ const staticRoutes: AppRouteRecordRaw[] = [
     path: '/mian',
     name: 'mian',
     component: () => import('@views/dashboard/console/index.vue'),
-    meta: { title:'控制台', isHideTab: true, noLogin: true, setTheme: true }
+    meta: { title: '控制台', isHideTab: true, noLogin: true, setTheme: true }
   },
   {
     path: '/dashboard',
